@@ -12,8 +12,6 @@ export class Ball {
         this.baseSpeed = sizeScreen.height / 3000;
         this.speed = this.baseSpeed
         this.ref1 = GameObjects.findById(0)
-        console.log(this.ref1);
-        
         this.ref2 = null
         this.id = 2
         this.direction = {
