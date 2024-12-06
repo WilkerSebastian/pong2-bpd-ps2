@@ -12,7 +12,7 @@ export class Ball {
         this.baseSpeed = sizeScreen.height / 3000;
         this.speed = this.baseSpeed
         this.ref1 = GameObjects.findById(0)
-        this.ref2 = null
+        this.ref2 = GameObjects.findById(1)
         this.id = 2
         this.direction = {
             x: Math.round(Math.random() * 100) % 2 == 0 ? 1 : -1,
@@ -25,6 +25,8 @@ export class Ball {
         let vec = this.move();
 
         vec = this.playerCollision(vec, 0);
+
+        vec = this.playerCollision(vec, 1);
 
         if (vec.y < 10 || vec.y + this.height > sizeScreen.height - 25) {
             

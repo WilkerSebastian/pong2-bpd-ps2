@@ -10,13 +10,21 @@ Screen.setFrameCounter(true);
 
 Gamepads.init();
 
-GameObjects.gameObjects = [
-    new Player(50, 50),
-]
 
-GameObjects.gameObjects.push(
-    new Ball(),
-)
+function gameScene() {
+
+    GameObjects.gameObjects = [
+        new Player(70, sizeScreen.height / 2, 0),
+        new Player(sizeScreen.width - 70, sizeScreen.height / 2, 1)
+    ]
+
+    GameObjects.gameObjects.push(
+        new Ball(),
+    )
+
+}
+
+gameScene()
 
 Screen.display(() => {
 
@@ -30,5 +38,8 @@ Screen.display(() => {
 
     for (let i = 0; i < GameObjects.gameObjects.length; i++) 
         GameObjects.gameObjects[i].render();
+
+    if (GameObjects.gameObjects.length == 2)
+        gameScene()
 
 });
