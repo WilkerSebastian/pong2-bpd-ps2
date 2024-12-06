@@ -4,19 +4,21 @@ import { Player } from "./gameobject/Player.js";
 import { Gamepads } from "./input/Gamepads.js";
 import { Ball } from "./gameobject/Ball.js";
 import { GameObjects } from "./gameobject/GameObjects.js";
+import { ScoreBoard } from "./ui/ScoreBoard.js";
 
 Screen.setVSync(false);
 Screen.setFrameCounter(true);
 
 Gamepads.init();
 
+GameObjects.gameObjects = [new ScoreBoard()];
 
 function gameScene() {
 
-    GameObjects.gameObjects = [
+    GameObjects.gameObjects.push(
         new Player(70, sizeScreen.height / 2, 0),
-        new Player(sizeScreen.width - 70, sizeScreen.height / 2, 1)
-    ]
+        new Player(sizeScreen.width - 70, sizeScreen.height / 2, 1),
+    )
 
     GameObjects.gameObjects.push(
         new Ball(),
@@ -39,7 +41,12 @@ Screen.display(() => {
     for (let i = 0; i < GameObjects.gameObjects.length; i++) 
         GameObjects.gameObjects[i].render();
 
-    if (GameObjects.gameObjects.length == 2)
+    if (GameObjects.gameObjects.length == 3) {
+        
+        GameObjects.destroy(0)
+        GameObjects.destroy(1)
         gameScene()
+
+    }
 
 });
