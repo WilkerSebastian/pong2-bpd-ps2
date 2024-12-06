@@ -5,6 +5,7 @@ import { Gamepads } from "./input/Gamepads.js";
 import { Ball } from "./gameobject/Ball.js";
 import { GameObjects } from "./gameobject/GameObjects.js";
 import { ScoreBoard } from "./ui/ScoreBoard.js";
+import { Identifier } from "./gameobject/Identifier.js";
 
 const canvas = Screen.getMode();
 canvas.zbuffering = true;
@@ -30,8 +31,8 @@ GameObjects.gameObjects = [new ScoreBoard()];
 function gameScene() {
 
     GameObjects.gameObjects.push(
-        new Player(70, ScreenSize.height / 2, 0),
-        new Player(ScreenSize.width - 70, ScreenSize.height / 2, 1),
+        new Player(70, ScreenSize.height / 2, Identifier.PLAYER1),
+        new Player(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2),
     )
 
     GameObjects.gameObjects.push(
@@ -58,7 +59,7 @@ Screen.display(() => {
     for (let i = 0; i < GameObjects.gameObjects.length; i++) 
         GameObjects.gameObjects[i].render();
 
-    if (GameObjects.gameObjects.length == 3) {
+    if (!GameObjects.findById(Identifier.BALL)) {
         
         GameObjects.destroy(0)
         GameObjects.destroy(1)

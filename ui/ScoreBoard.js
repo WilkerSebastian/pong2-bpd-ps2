@@ -1,3 +1,4 @@
+import { Identifier } from "../gameobject/Identifier.js";
 import { ScreenSize } from "../utils/ScreenSize.js";
 
 export class ScoreBoard {
@@ -7,7 +8,7 @@ export class ScoreBoard {
         this.font = new Font("assets/font/04B_30__.TTF");
         this.x = ScreenSize.width / 2.5;
         this.y = 20
-        this.id = 3
+        this.id = Identifier.SCOREBOARD
         this.score1 = 0;
         this.score2 = 0;
 

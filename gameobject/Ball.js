@@ -1,6 +1,7 @@
 import { ScreenSize } from "../utils/ScreenSize.js"
 import { Colors } from "../utils/Colors.js"
 import { GameObjects } from "./GameObjects.js"
+import { Identifier } from "./Identifier.js"
 
 export class Ball {
 
@@ -11,8 +12,8 @@ export class Ball {
         this.height = 15
         this.baseSpeed = ScreenSize.height / 2500;
         this.speed = this.baseSpeed
-        this.ref1 = GameObjects.findById(0)
-        this.ref2 = GameObjects.findById(1)
+        this.ref1 = GameObjects.findById(Identifier.PLAYER1)
+        this.ref2 = GameObjects.findById(Identifier.PLAYER2)
         this.id = 2
         this.direction = {
             x: Math.round(Math.random() * 100) % 2 == 0 ? 1 : -1,
@@ -24,9 +25,9 @@ export class Ball {
 
         let vec = this.move();
 
-        vec = this.playerCollision(vec, 0);
+        vec = this.playerCollision(vec, Identifier.PLAYER1);
 
-        vec = this.playerCollision(vec, 1);
+        vec = this.playerCollision(vec, Identifier.PLAYER2);
 
         if (vec.y < 10 || vec.y + this.height > ScreenSize.height - 25) {
             
