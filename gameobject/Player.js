@@ -1,14 +1,16 @@
 import { Colors } from "../utils/Colors.js";
 import { Gamepads } from "../input/Gamepads.js";
 import { sizeScreen } from "../utils/sizeScreen.js";
+import { GameObjects } from "./GameObjects.js";
 
 export class Player {
 
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 32;
-        this.height = 32;
+        this.width = 20;
+        this.height = 75;
+        this.id = GameObjects.findById(0) ? 1 : 0
         this.baseSpeed = sizeScreen.height / 3000;
         this.speed = this.baseSpeed
     }
