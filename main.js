@@ -9,6 +9,11 @@ import { ScoreBoard } from "./ui/ScoreBoard.js";
 Screen.setVSync(false);
 Screen.setFrameCounter(true);
 
+let audio = Sound.load("assets/audio/retro_david.wav");
+
+Sound.setVolume(85);
+Sound.repeat(true)
+
 Gamepads.init();
 
 GameObjects.gameObjects = [new ScoreBoard()];
@@ -29,6 +34,9 @@ function gameScene() {
 gameScene()
 
 Screen.display(() => {
+
+    if (!Sound.isPlaying())
+        Sound.play(audio);
 
     Gamepads.update();
 
