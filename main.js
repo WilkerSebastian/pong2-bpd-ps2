@@ -1,17 +1,26 @@
 import { Colors } from "./utils/Colors.js";
-import { sizeScreen } from "./utils/sizeScreen.js";
+import { ScreenSize } from "./utils/ScreenSize.js";
 import { Player } from "./gameobject/Player.js";
 import { Gamepads } from "./input/Gamepads.js";
 import { Ball } from "./gameobject/Ball.js";
 import { GameObjects } from "./gameobject/GameObjects.js";
 import { ScoreBoard } from "./ui/ScoreBoard.js";
 
+const canvas = Screen.getMode();
+canvas.zbuffering = true;
+canvas.psmz = Z16S;
+
+Screen.setMode(canvas);
+
+ScreenSize.width = canvas.width;
+ScreenSize.height = canvas.height;
+
 Screen.setVSync(false);
 Screen.setFrameCounter(true);
 
 let audio = Sound.load("assets/audio/retro_david.wav");
 
-Sound.setVolume(85);
+Sound.setVolume(100);
 Sound.repeat(true)
 
 Gamepads.init();
@@ -21,8 +30,8 @@ GameObjects.gameObjects = [new ScoreBoard()];
 function gameScene() {
 
     GameObjects.gameObjects.push(
-        new Player(70, sizeScreen.height / 2, 0),
-        new Player(sizeScreen.width - 70, sizeScreen.height / 2, 1),
+        new Player(70, ScreenSize.height / 2, 0),
+        new Player(ScreenSize.width - 70, ScreenSize.height / 2, 1),
     )
 
     GameObjects.gameObjects.push(
@@ -43,8 +52,8 @@ Screen.display(() => {
     for (let i = 0; i < GameObjects.gameObjects.length; i++) 
         GameObjects.gameObjects[i].update();
 
-    Draw.rect(0, 0, sizeScreen.width, sizeScreen.height, Colors.WHITE)
-    Draw.rect(10, 10, sizeScreen.width - 20, sizeScreen.height - 25, Colors.BLACK)
+    Draw.rect(0, 0, ScreenSize.width, ScreenSize.height, Colors.WHITE)
+    Draw.rect(10, 10, ScreenSize.width - 20, ScreenSize.height - 25, Colors.BLACK)
 
     for (let i = 0; i < GameObjects.gameObjects.length; i++) 
         GameObjects.gameObjects[i].render();

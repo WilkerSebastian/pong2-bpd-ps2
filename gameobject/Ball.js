@@ -1,15 +1,15 @@
-import { sizeScreen } from "../utils/sizeScreen.js"
+import { ScreenSize } from "../utils/ScreenSize.js"
 import { Colors } from "../utils/Colors.js"
 import { GameObjects } from "./GameObjects.js"
 
 export class Ball {
 
     constructor() {
-        this.x = sizeScreen.width / 2
-        this.y = sizeScreen.height / 2
+        this.x = ScreenSize.width / 2
+        this.y = ScreenSize.height / 2
         this.width = 15
         this.height = 15
-        this.baseSpeed = sizeScreen.height / 3000;
+        this.baseSpeed = ScreenSize.height / 2500;
         this.speed = this.baseSpeed
         this.ref1 = GameObjects.findById(0)
         this.ref2 = GameObjects.findById(1)
@@ -28,7 +28,7 @@ export class Ball {
 
         vec = this.playerCollision(vec, 1);
 
-        if (vec.y < 10 || vec.y + this.height > sizeScreen.height - 25) {
+        if (vec.y < 10 || vec.y + this.height > ScreenSize.height - 25) {
             
             this.direction.y *= -1;
 
@@ -36,12 +36,12 @@ export class Ball {
 
         }
 
-        if (vec.x < 10 || vec.x + this.width > sizeScreen.width - 10) {
+        if (vec.x < 10 || vec.x + this.width > ScreenSize.width - 10) {
             
             if (vec.x < 10)
                 GameObjects.findById(3).score1 += 1;
 
-            if (vec.x + this.width > sizeScreen.width - 10)
+            if (vec.x + this.width > ScreenSize.width - 10)
                 GameObjects.findById(3).score2 += 1;
 
             GameObjects.destroy(this.id)

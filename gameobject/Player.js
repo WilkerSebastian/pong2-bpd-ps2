@@ -1,7 +1,6 @@
 import { Colors } from "../utils/Colors.js";
 import { Gamepads } from "../input/Gamepads.js";
-import { sizeScreen } from "../utils/sizeScreen.js";
-import { GameObjects } from "./GameObjects.js";
+import { ScreenSize } from "../utils/ScreenSize.js";
 
 export class Player {
 
@@ -11,7 +10,7 @@ export class Player {
         this.width = 20;
         this.height = 75;
         this.id = id
-        this.baseSpeed = sizeScreen.height / 3000;
+        this.baseSpeed = ScreenSize.height / 2000;
         this.speed = this.baseSpeed
     }
 
@@ -36,7 +35,7 @@ export class Player {
 
         }
 
-        if (vec.y < 10 || vec.y + this.height > sizeScreen.height - 10)
+        if (vec.y < 10 || vec.y + this.height > ScreenSize.height - 10)
             return
             
         this.y = vec.y

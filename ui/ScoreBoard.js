@@ -1,15 +1,15 @@
-import { sizeScreen } from "../utils/sizeScreen.js";
+import { ScreenSize } from "../utils/ScreenSize.js";
 
 export class ScoreBoard {
 
     constructor() {
 
-        this.x = (sizeScreen.width / 2) - 35;
+        this.font = new Font("assets/font/04B_30__.TTF");
+        this.x = ScreenSize.width / 2.5;
         this.y = 20
         this.id = 3
         this.score1 = 0;
         this.score2 = 0;
-        this.font = new Font("assets/font/04B_30__.TTF");
 
     }
 
@@ -21,7 +21,7 @@ export class ScoreBoard {
 
     render() {
 
-        this.font.print(this.x, this.y, `${this.score1} | ${this.score2}`);
+        this.font.print(this.x, this.y, `${this.score1.toString().padStart(2, "0")} X ${this.score2.toString().padStart(2, "0")}`);
 
     }
 
