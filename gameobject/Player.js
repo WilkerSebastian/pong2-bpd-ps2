@@ -20,12 +20,22 @@ export class Player {
     }
 
     move() {
+
+        const vec = {
+            x: this.x,
+            y: this.y
+        }
        
         if(Gamepads.first.getPadAnalog().left.y  != 0) {
 
-            this.y += this.speed * (Gamepads.first.getPadAnalog().left.y / (Gamepads.first.getPadAnalog().left.y > 0 ? 128 : 127));
+            vec.y += this.speed * (Gamepads.first.getPadAnalog().left.y / (Gamepads.first.getPadAnalog().left.y > 0 ? 128 : 127));
 
         }
+
+        if (vec.y < 10 || vec.y + this.height > sizeScreen.height - 10)
+            return
+            
+        this.y = vec.y
 
     }
 
