@@ -39,11 +39,19 @@ export class Ball {
 
         if (vec.x < 10 || vec.x + this.width > ScreenSize.width - 10) {
             
-            if (vec.x < 10)
-                GameObjects.findUIById(Identifier.SCOREBOARD).score2 += 1;
+            if (vec.x < 10) {
 
-            if (vec.x + this.width > ScreenSize.width - 10)
+                GameObjects.findUIById(Identifier.SCOREBOARD).score2 += 1;
+                this.ref2.skill.addTime(100)
+
+            }
+
+            if (vec.x + this.width > ScreenSize.width - 10) {
+
                 GameObjects.findUIById(Identifier.SCOREBOARD).score1 += 1;
+                this.ref1.skill.addTime(100)
+
+            }
 
             GameObjects.destroy(this.id)
             return

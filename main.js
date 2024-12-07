@@ -6,6 +6,15 @@ import { Ball } from "./gameobject/Ball.js";
 import { GameObjects } from "./gameobject/GameObjects.js";
 import { ScoreBoard } from "./ui/ScoreBoard.js";
 import { Identifier } from "./gameobject/Identifier.js";
+import { GameState } from "./state/GameState.js";
+import { SkillType } from "./gameobject/SkilType.js";
+import { SkillBar } from "./ui/SkillBar.js";
+
+const Scenes = {
+    GAME: 0
+}
+
+let currentScene = null;
 
 const canvas = Screen.getMode();
 canvas.zbuffering = true;
@@ -26,45 +35,91 @@ Sound.repeat(true)
 
 Gamepads.init();
 
-GameObjects.gameObjects = [new ScoreBoard()];
-
 function gameScene() {
+
+    currentScene = Scenes.GAME
+
+    GameObjects.uiObjects = [
+        new ScoreBoard()
+    ];
 
     GameObjects.gameObjects.push(
         new Player(70, ScreenSize.height / 2, Identifier.PLAYER1),
         new Player(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2),
     )
 
+    GameObjects.uiObjects.push(
+        new SkillBar(Identifier.PLAYER1),
+        new SkillBar(Identifier.PLAYER2),
+    )
+
     GameObjects.gameObjects.push(
         new Ball(),
     )
+
+    Sound.play(audio);
 
 }
 
 gameScene()
 
-Screen.display(() => {
+const timer = Timer.new();
 
-    if (!Sound.isPlaying())
-        Sound.play(audio);
+let delay_tick = 1000 / 20
+
+Screen.display(() => {
 
     Gamepads.update();
 
-    for (let i = 0; i < GameObjects.gameObjects.length; i++) 
-        GameObjects.gameObjects[i].update();
+    if (Timer.getTime(timer) >= delay_tick) {
 
-    Draw.rect(0, 0, ScreenSize.width, ScreenSize.height, Colors.WHITE)
-    Draw.rect(10, 10, ScreenSize.width - 20, ScreenSize.height - 25, Colors.BLACK)
+        if (GameState.state == GameState.PLAYING) {
+
+            for (let i = 0; i < GameObjects.gameObjects.length; i++) 
+                GameObjects.gameObjects[i].update();
+
+        } else if (GameState.state == GameState.TIME_STOP) {
+
+            const p1 = GameObjects.findById(Identifier.PLAYER1)
+            
+            if (p1.skill.type = SkillType.BREAK_TIME) 
+                p1.update();
+
+            const p2 = GameObjects.findById(Identifier.PLAYER2)
+
+            if (p2.skill.type = SkillType.BREAK_TIME)
+                p2.update();
+
+        }
+
+        for (let i = 0; i < GameObjects.uiObjects.length; i++) 
+            GameObjects.uiObjects[i].update();
+
+        Timer.setTime(timer, 0);
+
+    }
+
+    Screen.clear();
+
+    if (currentScene == Scenes.GAME) {
+
+        Draw.rect(0, 0, ScreenSize.width, ScreenSize.height, Colors.WHITE)
+        Draw.rect(10, 10, ScreenSize.width - 20, ScreenSize.height - 25, Colors.BLACK)
+
+        if (!GameObjects.findById(Identifier.BALL)) {
+
+            GameObjects.gameObjects.push(
+                new Ball(),
+            )
+    
+        }
+
+    }
 
     for (let i = 0; i < GameObjects.gameObjects.length; i++) 
         GameObjects.gameObjects[i].render();
 
-    if (!GameObjects.findById(Identifier.BALL)) {
-        
-        GameObjects.destroy(0)
-        GameObjects.destroy(1)
-        gameScene()
-
-    }
+    for (let i = 0; i < GameObjects.uiObjects.length; i++) 
+        GameObjects.uiObjects[i].render();
 
 });
