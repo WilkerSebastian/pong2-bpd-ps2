@@ -22,7 +22,7 @@ export class Boote extends Player {
 
         if (this.timeDecision >= 250) {
 
-            const correct = Math.floor(Math.random() * 100) % 5 == 0
+            const correct = Math.floor(Math.random() * 100) % 2 == 0
 
             const ball = GameObjects.findById(Identifier.BALL);
 
