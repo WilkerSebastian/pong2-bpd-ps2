@@ -82,12 +82,12 @@ Screen.display(() => {
 
             const p1 = GameObjects.findById(Identifier.PLAYER1)
             
-            if (p1.skill.type = SkillType.BREAK_TIME) 
+            if (p1.skill.type == SkillType.BREAK_TIME) 
                 p1.update();
 
             const p2 = GameObjects.findById(Identifier.PLAYER2)
 
-            if (p2.skill.type = SkillType.BREAK_TIME)
+            if (p2.skill.type == SkillType.BREAK_TIME)
                 p2.update();
 
         }

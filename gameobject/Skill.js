@@ -45,11 +45,11 @@ export class Skill {
 
     break_time() {
 
-        GameState.TIME_STOP = true
+        GameState.state = GameState.TIME_STOP
 
         os.setTimeout(() => {
             
-            GameState.TIME_STOP = false
+            GameState.state = GameState.PLAYING
             this.time_load = 0
             this.used = false
             

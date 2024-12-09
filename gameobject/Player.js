@@ -17,7 +17,7 @@ export class Player {
         this.baseSpeed = ScreenSize.height / 2000;
         this.speed = this.baseSpeed
         this.horizontal_move = false
-        this.skill = new Skill(SkillType.VECTOR_FREEDOM, this)
+        this.skill = new Skill(SkillType.BREAK_TIME, this)
     }
 
     update() {
