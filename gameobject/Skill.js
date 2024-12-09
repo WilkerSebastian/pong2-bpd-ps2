@@ -80,11 +80,8 @@ export class Skill {
 
     big_stick() {
 
-        if (this.player.y + this.player.height * 2 > ScreenSize.height - 10) {
-
-            this.player.y -= this.player.height
-
-        }
+        if (this.player.y + this.player.height * 2 > ScreenSize.height - 10)
+            this.player.y -= this.player.height;
 
         this.player.height *= 2
 
