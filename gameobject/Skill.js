@@ -1,6 +1,7 @@
 import { SkillType } from "./SkilType.js"
 import { Identifier } from "./Identifier.js"
 import { GameState } from "../state/GameState.js"
+import { GameObjects } from "./GameObjects.js"
 
 export class Skill {
 
