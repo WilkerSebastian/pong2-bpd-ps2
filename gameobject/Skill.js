@@ -103,6 +103,7 @@ export class Skill {
             this.player.horizontal_move = false
             this.time_load = 0
             this.used = false
+            this.player.reset()
             
         }, 7000)
 

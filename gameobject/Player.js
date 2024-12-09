@@ -3,6 +3,7 @@ import { Gamepads } from "../input/Gamepads.js";
 import { ScreenSize } from "../utils/ScreenSize.js";
 import { Skill } from "./Skill.js";
 import { SkillType } from "./SkilType.js";
+import { Identifier } from "./Identifier.js";
 
 export class Player {
 
@@ -16,7 +17,7 @@ export class Player {
         this.baseSpeed = ScreenSize.height / 2000;
         this.speed = this.baseSpeed
         this.horizontal_move = false
-        this.skill = new Skill(SkillType.ZAAS, this)
+        this.skill = new Skill(SkillType.VECTOR_FREEDOM, this)
     }
 
     update() {
@@ -42,18 +43,28 @@ export class Player {
             y: this.y
         }
 
-        const analog = this.id == 0 ? Gamepads.first.getPadAnalog().left : Gamepads.second.getPadAnalog().left;
-       
+        const analog = this.id == Identifier.PLAYER1 ? Gamepads.first.getPadAnalog().left : Gamepads.second.getPadAnalog().left;
+
         if(analog.y  != 0) {
 
             vec.y += this.speed * (analog.y / (analog.y > 0 ? 128 : 127));
 
         }
 
+        if (analog.x != 0 && this.horizontal_move) {            
+
+            vec.x += this.speed * (analog.x / (analog.x > 0 ? 128 : 127));
+
+        }
+
+        if (vec.x < 10 || vec.x + this.width > ScreenSize.width / 2)
+            return
+
         if (vec.y < 10 || vec.y + this.height > ScreenSize.height - 10)
             return
             
         this.y = vec.y
+        this.x = vec.x
 
     }
 
@@ -61,6 +72,11 @@ export class Player {
 
         Draw.rect(this.x, this.y, this.width, this.height, Colors.WHITE);
 
+    }
+
+    reset() {
+        this.x = this.origin.x
+        this.y = this.origin.y
     }
 
 }
