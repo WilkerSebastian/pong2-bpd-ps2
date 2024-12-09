@@ -2,6 +2,7 @@ import { SkillType } from "./SkilType.js"
 import { Identifier } from "./Identifier.js"
 import { GameState } from "../state/GameState.js"
 import { GameObjects } from "./GameObjects.js"
+import { ScreenSize } from "../utils/ScreenSize.js"
 
 export class Skill {
 
@@ -78,6 +79,12 @@ export class Skill {
     }
 
     big_stick() {
+
+        if (this.player.y + this.player.height * 2 > ScreenSize.height - 10) {
+
+            this.player.y -= this.player.height
+
+        }
 
         this.player.height *= 2
 
