@@ -9,6 +9,7 @@ import { Identifier } from "./gameobject/Identifier.js";
 import { GameState } from "./state/GameState.js";
 import { SkillType } from "./gameobject/SkilType.js";
 import { SkillBar } from "./ui/SkillBar.js";
+import { Boote } from "./gameobject/Boote.js";
 
 const Scenes = {
     GAME: 0
@@ -45,7 +46,7 @@ function gameScene() {
 
     GameObjects.gameObjects.push(
         new Player(70, ScreenSize.height / 2, Identifier.PLAYER1),
-        new Player(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2),
+        new Boote(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2)
     )
 
     GameObjects.uiObjects.push(
