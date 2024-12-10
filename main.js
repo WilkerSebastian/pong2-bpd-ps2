@@ -22,7 +22,6 @@ Screen.setVSync(false);
 Screen.setFrameCounter(true);
 
 Sound.setVolume(100);
-Sound.repeat(true)
 
 Gamepads.init();
 

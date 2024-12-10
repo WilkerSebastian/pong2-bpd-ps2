@@ -8,6 +8,7 @@ import { SkillBar } from "../ui/SkillBar.js"
 import { ScreenSize } from "./ScreenSize.js"
 import { Identifier } from "../gameobject/Identifier.js"
 import { MainTitle } from "./MainTitle.js"
+import { MainMenu } from "./MainMenu.js"
 
 export class SceneManeger {
 
@@ -15,6 +16,11 @@ export class SceneManeger {
     static audio = null
 
     static changeScene(scene) {
+
+        if (this.audio != null)
+            Sound.free(audio);
+
+        Sound.repeat(false)
 
         GameObjects.gameObjects = [];
         GameObjects.uiObjects = [];
@@ -29,13 +35,11 @@ export class SceneManeger {
 
     static mainMenuScene() {
 
-        if (this.audio != null)
-            Sound.free(audio);
-
         this.currentScene = SceneType.MAIN_MENU
 
         GameObjects.uiObjects.push(
-            new MainTitle(ScreenSize.width / 4.5, 75)
+            new MainTitle(ScreenSize.width / 4.5, 75),
+            new MainMenu(ScreenSize.width / 4.5, ScreenSize.height / 1.75)
         );
 
     }
@@ -43,11 +47,9 @@ export class SceneManeger {
     static gameScene() {
 
         this.currentScene = SceneType.GAME
-    
-        if (this.audio != null)
-            Sound.free(audio);
 
         this.audio = Sound.load("assets/audio/retro_david.wav");
+        Sound.repeat(true)
 
         GameObjects.uiObjects.push(
             new ScoreBoard()
