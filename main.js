@@ -26,7 +26,7 @@ Sound.repeat(true)
 
 Gamepads.init();
 
-SceneManeger.changeScene(SceneType.GAME);
+SceneManeger.changeScene(SceneType.MAIN_MENU);
 
 const timer = Timer.new();
 

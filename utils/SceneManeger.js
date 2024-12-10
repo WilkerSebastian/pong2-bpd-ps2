@@ -7,6 +7,7 @@ import { ScoreBoard } from "../ui/ScoreBoard.js"
 import { SkillBar } from "../ui/SkillBar.js"
 import { ScreenSize } from "./ScreenSize.js"
 import { Identifier } from "../gameobject/Identifier.js"
+import { MainTitle } from "./MainTitle.js"
 
 export class SceneManeger {
 
@@ -15,8 +16,27 @@ export class SceneManeger {
 
     static changeScene(scene) {
 
+        GameObjects.gameObjects = [];
+        GameObjects.uiObjects = [];
+
+        if (scene == SceneType.MAIN_MENU)
+            this.mainMenuScene();
+
         if (scene == SceneType.GAME)
             this.gameScene();
+
+    }
+
+    static mainMenuScene() {
+
+        if (this.audio != null)
+            Sound.free(audio);
+
+        this.currentScene = SceneType.MAIN_MENU
+
+        GameObjects.uiObjects.push(
+            new MainTitle(ScreenSize.width / 4.5, 75)
+        );
 
     }
 
