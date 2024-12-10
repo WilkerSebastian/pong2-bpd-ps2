@@ -1,21 +1,13 @@
 import { Colors } from "./utils/Colors.js";
 import { ScreenSize } from "./utils/ScreenSize.js";
-import { Player } from "./gameobject/Player.js";
 import { Gamepads } from "./input/Gamepads.js";
 import { Ball } from "./gameobject/Ball.js";
 import { GameObjects } from "./gameobject/GameObjects.js";
-import { ScoreBoard } from "./ui/ScoreBoard.js";
 import { Identifier } from "./gameobject/Identifier.js";
 import { GameState } from "./state/GameState.js";
 import { SkillType } from "./gameobject/SkilType.js";
-import { SkillBar } from "./ui/SkillBar.js";
-import { Boote } from "./gameobject/Boote.js";
-
-const Scenes = {
-    GAME: 0
-}
-
-let currentScene = null;
+import { SceneManeger } from "./utils/SceneManeger.js";
+import { SceneType } from "./utils/SceneType.js";
 
 const canvas = Screen.getMode();
 canvas.zbuffering = true;
@@ -29,40 +21,12 @@ ScreenSize.height = canvas.height;
 Screen.setVSync(false);
 Screen.setFrameCounter(true);
 
-let audio = Sound.load("assets/audio/retro_david.wav");
-
 Sound.setVolume(100);
 Sound.repeat(true)
 
 Gamepads.init();
 
-function gameScene() {
-
-    currentScene = Scenes.GAME
-
-    GameObjects.uiObjects = [
-        new ScoreBoard()
-    ];
-
-    GameObjects.gameObjects.push(
-        new Player(70, ScreenSize.height / 2, Identifier.PLAYER1),
-        new Boote(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2)
-    )
-
-    GameObjects.uiObjects.push(
-        new SkillBar(Identifier.PLAYER1),
-        new SkillBar(Identifier.PLAYER2),
-    )
-
-    GameObjects.gameObjects.push(
-        new Ball(),
-    )
-
-    Sound.play(audio);
-
-}
-
-gameScene()
+SceneManeger.changeScene(SceneType.GAME);
 
 const timer = Timer.new();
 
@@ -100,9 +64,7 @@ Screen.display(() => {
 
     }
 
-    Screen.clear();
-
-    if (currentScene == Scenes.GAME) {
+    if (SceneManeger.currentScene == SceneType.GAME) {
 
         Draw.rect(0, 0, ScreenSize.width, ScreenSize.height, Colors.WHITE)
         Draw.rect(10, 10, ScreenSize.width - 20, ScreenSize.height - 25, Colors.BLACK)
