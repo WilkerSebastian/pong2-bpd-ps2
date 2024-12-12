@@ -10,9 +10,20 @@ export class SkillSelect {
 
         this.title = new Font("assets/font/Decterm.ttf");
 
+        this.descTitle = new Font("assets/font/Decterm.ttf");
+
+        this.desc = new Font("assets/font/Decterm.ttf");
+
         this.currentOption = 0
 
         this.image = new Image("assets/img/skill_icons.png", VRAM);
+
+        this.descriptions = [
+            "Freeze time, plan unbeatable moves, dominate the game!",
+            "Enter high-speed mode along with the ball, confusing\nyour opponents and dominating the game with quick\nand precise movements!",
+            "Double your player's height for superior defense\nblocking shots effortlessly and securing victory\nwith unmatched prowess!",
+            "Move horizontally with ease, surprising opponents\nand seizing control of the game!"
+        ]
 
     }
 
@@ -57,6 +68,15 @@ export class SkillSelect {
 
     }
 
+    descriptionBlock() {
+
+        const breakTexts = this.descriptions[this.currentOption].split("\n");
+
+        for (let i = 0;i < breakTexts.length;i++)
+            this.desc.print(this.x + 25, this.y + 240 + (i * 25), breakTexts[i])
+
+    }
+
     changeOption(value) {
 
         if (this.currentOption + value < 0 || this.currentOption + value > 3)
@@ -85,6 +105,11 @@ export class SkillSelect {
 
         for (let i = 0;i < 4;i++)
             this.cardSkill(i)
+
+        this.descTitle.scale = 1.5
+        this.descTitle.print(this.x + 210, this.y + 210, "DESCRIPTION");
+
+        this.descriptionBlock()
 
     }
 
