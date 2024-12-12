@@ -1,4 +1,5 @@
 import { Colors } from "../utils/Colors.js";
+import { Gamepads } from "../input/Gamepads.js";
 
 export class SkillSelect {
 
@@ -9,6 +10,8 @@ export class SkillSelect {
 
         this.title = new Font("assets/font/Decterm.ttf");
 
+        this.currentOption = 0
+
         this.image = new Image("assets/img/skill_icons.png", VRAM);
 
     }
@@ -18,7 +21,7 @@ export class SkillSelect {
 
         const xi = this.x + (index * 150)
 
-        Draw.rect(xi, this.y, 128, 170, Colors.WHITE);
+        Draw.rect(xi, this.y, 128, 170, this.currentOption == index ? Colors.BLUE_OCEAN : Colors.WHITE);
         Draw.rect(xi + 4, this.y + 4, 120, 162, Colors.BLACK);
 
         this.image.startx = index * 32
@@ -54,9 +57,24 @@ export class SkillSelect {
 
     }
 
+    changeOption(value) {
+
+        if (this.currentOption + value < 0 || this.currentOption + value > 3)
+            return
+
+        this.currentOption += value
+
+    }
+
     update() {
 
+        const analog = Gamepads.first.getPadAnalog().left
+        
+        if (Gamepads.first.pad.justPressed(Pads.LEFT) || analog.x < -125)
+            this.changeOption(-1)
 
+        if (Gamepads.first.pad.justPressed(Pads.RIGHT) || analog.x > 125)
+            this.changeOption(1)
 
     }
 
