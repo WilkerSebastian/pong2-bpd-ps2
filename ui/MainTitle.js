@@ -1,4 +1,4 @@
-import { Colors } from "./Colors.js";
+import { Colors } from "../utils/Colors.js";
 
 export class MainTitle {
 

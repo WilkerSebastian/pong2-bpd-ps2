@@ -1,4 +1,6 @@
 import { Gamepads } from "../input/Gamepads.js";
+import { SceneManeger } from "../utils/SceneManeger.js";
+import { SceneType } from "../utils/SceneType.js";
 
 export class MainMenu {
 
@@ -16,8 +18,6 @@ export class MainMenu {
         this.arrowX = this.x - this.arrow.getTextSize("->").width - 10
         this.arrowY = this.y
 
-        this.inputed = false
-
         this.changeScale()   
 
     }
@@ -31,6 +31,9 @@ export class MainMenu {
 
         if (Gamepads.first.pad.justPressed(Pads.DOWN) || analog.y > 125)
             this.selectOption(1)
+
+        if (Gamepads.first.pad.justPressed(Pads.CROSS))
+            this.acceptOption()
 
     }
 
@@ -70,6 +73,16 @@ export class MainMenu {
 
         if (this.currentOption == 2)
             this.options.scale = 1.1;
+
+    }
+
+    acceptOption() {
+
+        if (this.currentOption == 0)
+            SceneManeger.changeScene(SceneType.SKILL_SELECT1);
+
+        if (this.currentOption == 1)
+            SceneManeger.changeScene(SceneType.SKILL_SELECT2);
 
     }
 

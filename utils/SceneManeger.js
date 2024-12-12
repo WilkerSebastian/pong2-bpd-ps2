@@ -7,8 +7,9 @@ import { ScoreBoard } from "../ui/ScoreBoard.js"
 import { SkillBar } from "../ui/SkillBar.js"
 import { ScreenSize } from "./ScreenSize.js"
 import { Identifier } from "../gameobject/Identifier.js"
-import { MainTitle } from "./MainTitle.js"
-import { MainMenu } from "./MainMenu.js"
+import { MainTitle } from "../ui/MainTitle.js"
+import { MainMenu } from "../ui/MainMenu.js"
+import { SkillSelect } from "../ui/SkillSelect.js"
 
 export class SceneManeger {
 
@@ -28,8 +29,24 @@ export class SceneManeger {
         if (scene == SceneType.MAIN_MENU)
             this.mainMenuScene();
 
-        if (scene == SceneType.GAME)
+        else if (scene == SceneType.GAME)
             this.gameScene();
+
+        else if (scene == SceneType.SKILL_SELECT1)
+            this.SkillSelectScene();
+
+        else if (scene == SceneType.SKILL_SELECT2)
+            this.SkillSelectScene(false);
+
+    }
+
+    static SkillSelectScene(first = true) {
+
+        this.currentScene = first ? SceneType.SKILL_SELECT1 : SceneType.SKILL_SELECT2
+
+        GameObjects.uiObjects.push(
+            new SkillSelect(10, 25)
+        );
 
     }
 
