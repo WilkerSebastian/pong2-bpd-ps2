@@ -111,15 +111,7 @@ export class SkillSelect {
 
     back() {
 
-        if (this.first) {
-
-            SceneManeger.changeScene(SceneType.MAIN_MENU);
-
-            return
-
-        }
-
-        SceneManeger.changeScene(SceneType.SKILL_SELECT2);
+        SceneManeger.changeScene(this.first ? SceneType.MAIN_MENU : SceneType.SKILL_SELECT1);
 
     }
 

@@ -45,6 +45,9 @@ export class Player {
 
         const analog = this.id == Identifier.PLAYER1 ? Gamepads.first.getPadAnalog().left : Gamepads.second.getPadAnalog().left;
 
+        if (this.id != Identifier.PLAYER1)
+            console.log(analog.y);
+
         if(analog.y  != 0) {
 
             vec.y += this.speed * (analog.y / (analog.y > 0 ? 128 : 127));
