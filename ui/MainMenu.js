@@ -1,4 +1,5 @@
 import { Gamepads } from "../input/Gamepads.js";
+import { Globals } from "../utils/Globals.js";
 import { SceneManeger } from "../utils/SceneManeger.js";
 import { SceneType } from "../utils/SceneType.js";
 
@@ -78,11 +79,15 @@ export class MainMenu {
 
     acceptOption() {
 
-        if (this.currentOption == 0)
+        if (this.currentOption != 2) {
+
+            Globals.values.set("boote", this.currentOption == 1);
+            
             SceneManeger.changeScene(SceneType.SKILL_SELECT1);
 
-        if (this.currentOption == 1)
-            SceneManeger.changeScene(SceneType.SKILL_SELECT2);
+            return
+
+        }
 
     }
 

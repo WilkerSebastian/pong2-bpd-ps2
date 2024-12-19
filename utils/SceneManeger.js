@@ -10,6 +10,7 @@ import { Identifier } from "../gameobject/Identifier.js"
 import { MainTitle } from "../ui/MainTitle.js"
 import { MainMenu } from "../ui/MainMenu.js"
 import { SkillSelect } from "../ui/SkillSelect.js"
+import { Globals } from "./Globals.js"
 
 export class SceneManeger {
 
@@ -74,7 +75,9 @@ export class SceneManeger {
     
         GameObjects.gameObjects.push(
             new Player(70, ScreenSize.height / 2, Identifier.PLAYER1),
-            new Boote(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2)
+            Globals.values.get("boote") ?
+            new Boote(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2) :
+            new Player(ScreenSize.width - 70, ScreenSize.height / 2, Identifier.PLAYER2)
         )
     
         GameObjects.uiObjects.push(

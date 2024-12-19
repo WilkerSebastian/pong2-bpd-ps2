@@ -2,8 +2,8 @@ import { Colors } from "../utils/Colors.js";
 import { Gamepads } from "../input/Gamepads.js";
 import { ScreenSize } from "../utils/ScreenSize.js";
 import { Skill } from "./Skill.js";
-import { SkillType } from "./SkilType.js";
 import { Identifier } from "./Identifier.js";
+import { Globals } from "../utils/Globals.js";
 
 export class Player {
 
@@ -17,7 +17,7 @@ export class Player {
         this.baseSpeed = ScreenSize.height / 2000;
         this.speed = this.baseSpeed
         this.horizontal_move = false
-        this.skill = new Skill(SkillType.ZAAS, this)
+        this.skill = new Skill(Globals.values.get(id == Identifier.PLAYER1 ? "skill1" : "skill2"), this)
     }
 
     update() {

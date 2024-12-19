@@ -1,5 +1,8 @@
 import { Colors } from "../utils/Colors.js";
 import { Gamepads } from "../input/Gamepads.js";
+import { SceneManeger } from "../utils/SceneManeger.js";
+import { SceneType } from "../utils/SceneType.js";
+import { Globals } from "../utils/Globals.js";
 
 export class SkillSelect {
 
@@ -25,6 +28,8 @@ export class SkillSelect {
             "Move horizontally with ease, surprising opponents\nand seizing control of the game!"
         ]
 
+        this.first = SceneManeger.currentScene == SceneType.SKILL_SELECT1
+
     }
 
 
@@ -32,7 +37,7 @@ export class SkillSelect {
 
         const xi = this.x + (index * 150)
 
-        Draw.rect(xi, this.y, 128, 170, this.currentOption == index ? Colors.BLUE_OCEAN : Colors.WHITE);
+        Draw.rect(xi, this.y, 128, 170, this.currentOption == index ? this.first ? Colors.BLUE_OCEAN : Colors.DARK_VIOLET : Colors.WHITE);
         Draw.rect(xi + 4, this.y + 4, 120, 162, Colors.BLACK);
 
         this.image.startx = index * 32
@@ -86,15 +91,55 @@ export class SkillSelect {
 
     }
 
+    acceptOption() {
+
+        if (this.first) {
+
+            Globals.values.set("skill1", this.currentOption);
+
+            SceneManeger.changeScene(Globals.values.get("boote") ? SceneType.GAME : SceneType.SKILL_SELECT2);
+
+            return
+
+        } 
+        
+        Globals.values.set("skill2", this.currentOption);
+        
+        SceneManeger.changeScene(SceneType.GAME);
+
+    }
+
+    back() {
+
+        if (this.first) {
+
+            SceneManeger.changeScene(SceneType.MAIN_MENU);
+
+            return
+
+        }
+
+        SceneManeger.changeScene(SceneType.SKILL_SELECT2);
+
+    }
+
     update() {
 
-        const analog = Gamepads.first.getPadAnalog().left
+        const analog = this.first ? Gamepads.first.getPadAnalog().left : Gamepads.second.getPadAnalog().left
         
-        if (Gamepads.first.pad.justPressed(Pads.LEFT) || analog.x < -125)
+        const pad = this.first ? Gamepads.first.pad : Gamepads.second.pad
+
+        if (pad.justPressed(Pads.LEFT) || analog.x < -125)
             this.changeOption(-1)
 
-        if (Gamepads.first.pad.justPressed(Pads.RIGHT) || analog.x > 125)
+        if (pad.justPressed(Pads.RIGHT) || analog.x > 125)
             this.changeOption(1)
+
+        if (pad.justPressed(Pads.CROSS))
+            this.acceptOption()
+
+        if (pad.justPressed(Pads.CIRCLE))
+            this.back()
 
     }
 
