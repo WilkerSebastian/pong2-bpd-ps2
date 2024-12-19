@@ -1,12 +1,18 @@
 export class Gamepad {
 
+    pad = null
+
     constructor(padIndex) {
-        this.pad = Pads.get(padIndex);
+
+        if (Pads.getState(padIndex) != 0)
+            this.pad = Pads.get(padIndex);
+
     }
 
     update() {
 
-        this.pad.update();
+        if (this.pad)
+            this.pad.update();
 
     }
 
@@ -21,6 +27,9 @@ export class Gamepad {
     }
 
     getPadAnalog() {
+
+        if (!this.pad)
+            return null
     
         return {
             left: {
