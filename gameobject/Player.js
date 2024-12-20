@@ -24,7 +24,7 @@ export class Player {
 
         this.move()
 
-        const pad = this.id == 0 ? Gamepads.first : Gamepads.second
+        const pad = this.id == Identifier.PLAYER1 ? Gamepads.first : Gamepads.second
 
         if (pad.getPadPressed(Pads.L1) && pad.getPadPressed(Pads.R1)) {
 
@@ -45,9 +45,6 @@ export class Player {
 
         const analog = this.id == Identifier.PLAYER1 ? Gamepads.first.getPadAnalog().left : Gamepads.second.getPadAnalog().left;
 
-        if (this.id != Identifier.PLAYER1)
-            console.log(analog.y);
-
         if(analog.y  != 0) {
 
             vec.y += this.speed * (analog.y / (analog.y > 0 ? 128 : 127));
@@ -60,10 +57,10 @@ export class Player {
 
         }
 
-        if (vec.x < 10 || vec.x + this.width > ScreenSize.width / 2)
-            return
+        const horizontal_limit = this.id == Identifier.PLAYER1 ? vec.x < 10 || vec.x + this.width > ScreenSize.width / 2 : vec.x < ScreenSize.width / 2 || vec.x + this.width > ScreenSize.width - 10 
+        const vertical_limit = this.id == Identifier.PLAYER1 ? vec.y < 10 || vec.y + this.height > ScreenSize.height - 10 : vec.y < 10 || vec.y + this.height > ScreenSize.height - 10
 
-        if (vec.y < 10 || vec.y + this.height > ScreenSize.height - 10)
+        if (horizontal_limit || vertical_limit)
             return
             
         this.y = vec.y
