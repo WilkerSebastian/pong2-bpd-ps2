@@ -66,7 +66,7 @@ export class SceneManeger {
 
         this.currentScene = SceneType.GAME
 
-        this.audio = Sound.load("assets/audio/retro_david.wav");
+        this.audio = Sound.load("assets/audio/reborn.wav");
         Sound.repeat(true)
 
         GameObjects.uiObjects.push(
