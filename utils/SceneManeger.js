@@ -11,18 +11,13 @@ import { MainTitle } from "../ui/MainTitle.js"
 import { MainMenu } from "../ui/MainMenu.js"
 import { SkillSelect } from "../ui/SkillSelect.js"
 import { Globals } from "./Globals.js"
+import { AudioManger } from "./AudioManger.js"
 
 export class SceneManeger {
 
     static currentScene = null
-    static audio = null
 
     static changeScene(scene) {
-
-        if (this.audio != null)
-            Sound.free(audio);
-
-        Sound.repeat(false)
 
         GameObjects.gameObjects = [];
         GameObjects.uiObjects = [];
@@ -53,6 +48,8 @@ export class SceneManeger {
 
     static mainMenuScene() {
 
+        AudioManger.playBackground(true);
+
         this.currentScene = SceneType.MAIN_MENU
 
         GameObjects.uiObjects.push(
@@ -64,10 +61,9 @@ export class SceneManeger {
 
     static gameScene() {
 
-        this.currentScene = SceneType.GAME
+        AudioManger.playBackground(false);
 
-        this.audio = Sound.load("assets/audio/reborn.wav");
-        Sound.repeat(true)
+        this.currentScene = SceneType.GAME
 
         GameObjects.uiObjects.push(
             new ScoreBoard()
@@ -88,8 +84,6 @@ export class SceneManeger {
         GameObjects.gameObjects.push(
             new Ball(),
         )
-    
-        Sound.play(this.audio);
     
     }
 

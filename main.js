@@ -8,6 +8,7 @@ import { GameState } from "./state/GameState.js";
 import { SkillType } from "./gameobject/SkilType.js";
 import { SceneManeger } from "./utils/SceneManeger.js";
 import { SceneType } from "./utils/SceneType.js";
+import { AudioManger } from "./utils/AudioManger.js";
 
 const canvas = Screen.getMode();
 canvas.zbuffering = true;
@@ -21,9 +22,9 @@ ScreenSize.height = canvas.height;
 Screen.setVSync(false);
 Screen.setFrameCounter(true);
 
-Sound.setVolume(100);
-
 Gamepads.init();
+
+AudioManger.init();
 
 SceneManeger.changeScene(SceneType.MAIN_MENU);
 
