@@ -70,9 +70,6 @@ export class Ball {
 
         if (vec.x < x + width && vec.x + this.width > x && vec.y < y + height && vec.y + this.height > y) {
 
-            if (vec.x < x + width && vec.x + this.width > x)
-                this.direction.y *= -1;
-
             if (vec.y < y + height && vec.y + this.height > y)
                 this.direction.x *= -1;
 
