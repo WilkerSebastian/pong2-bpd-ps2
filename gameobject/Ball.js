@@ -10,7 +10,7 @@ export class Ball {
         this.y = ScreenSize.height / 2
         this.width = 15
         this.height = 15
-        this.baseSpeed = ScreenSize.height / 2500;
+        this.baseSpeed = ScreenSize.height / 650;
         this.speed = this.baseSpeed
         this.ref1 = GameObjects.findById(Identifier.PLAYER1)
         this.ref2 = GameObjects.findById(Identifier.PLAYER2)

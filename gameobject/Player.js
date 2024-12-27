@@ -14,7 +14,7 @@ export class Player {
         this.width = 20;
         this.height = 75;
         this.id = id
-        this.baseSpeed = ScreenSize.height / 2000;
+        this.baseSpeed = ScreenSize.height / 1000;
         this.speed = this.baseSpeed
         this.horizontal_move = false
         this.skill = new Skill(Globals.values.get(id == Identifier.PLAYER1 ? "skill1" : "skill2"), this)
@@ -32,7 +32,7 @@ export class Player {
 
         }
 
-        this.skill.addTime(0.35)
+        this.skill.addTime(0.175)
 
     }
 

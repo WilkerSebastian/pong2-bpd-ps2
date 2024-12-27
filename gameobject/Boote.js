@@ -2,6 +2,7 @@ import { GameObjects } from "./GameObjects.js";
 import { Identifier } from "./Identifier.js";
 import { Player } from "./Player.js";
 import { SkillType } from "./SkilType.js";
+import { Skill } from "./Skill.js";
 import { ScreenSize } from "../utils/ScreenSize.js";
 
 export class Boote extends Player {
@@ -12,7 +13,7 @@ export class Boote extends Player {
         this.timeDecision = 0
         this.direction = 0
     
-        this.skill.type = SkillType.BIG_STICK;
+        this.skill = new Skill(SkillType.BIG_STICK, this)
 
     }
 
@@ -59,7 +60,7 @@ export class Boote extends Player {
         if (!(vecy < 10 || vecy + this.height > ScreenSize.height - 10))
             this.y = vecy
 
-        this.skill.addTime(0.35)
+        this.skill.addTime(0.175)
 
     }
 
