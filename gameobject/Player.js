@@ -32,7 +32,7 @@ export class Player {
 
         }
 
-        this.skill.addTime(0.175)
+        this.skill.addTime(0.85)
 
     }
 

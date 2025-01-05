@@ -60,7 +60,7 @@ export class Boote extends Player {
         if (!(vecy < 10 || vecy + this.height > ScreenSize.height - 10))
             this.y = vecy
 
-        this.skill.addTime(0.175)
+        this.skill.addTime(0.85)
 
     }
 
